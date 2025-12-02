@@ -105,8 +105,6 @@ html, body {
     display: block; 
     color: inherit; 
     padding: 10px 20px; 
-    
-    /* LINHA DE BORDA REMOVIDA AQUI */
     border-bottom: none; 
 }
 
@@ -147,4 +145,8 @@ html, body {
 .logo-image {
     height: 78px; 
     width: auto;
+}
+.log{
+    color: aqua;
+    font-size: 200px;
 }
