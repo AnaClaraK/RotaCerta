@@ -10,39 +10,40 @@
     <div class="container">
         <div class="cadastro">
             <div class="servicos-section">
-            <img src="caminhao2.jpg" alt="Caminhão" class="caminhao2">
-            <img src="aviao.jpg" alt="Avião" class="aviao">
-                </div>
+                <img src="caminhao2.jpg" alt="Caminhão" class="caminhao2">
+                <img src="aviao.jpg" alt="Avião" class="aviao">
+            </div>
         </div>
         <div class="image"></div>
-            <div class="quadrado">
-                <div class="container-respostas">
-                    <p class="lb_contrate">Contrate nosso <br> serviço</p>
-                    <br>
-                    <br>
-                            <label for="empresa">Empresa</label>
-                            <input type="text" id="empresa">
-                    <br>
-                    <br>
-                            <label for="telefone">Telefone</label>
-                            <input type="tel" id="telefone">
-                    <br>
-                    <br>
-                            <label for="cpf">CPF</label>
-                            <input type="text" id="cpf">
-                    <br>
-                    <br>
-                            <label for="email">Email</label>
-                            <input type="email" id="email">
-                    <br>
-                    <br>
-                            <label for="senha">Senha</label>
-                            <input type="password" id="senha">
-                    <br>
-                    <br>
-                            <button id="btn_cadastrar" class="btn_cadastrar">Cadastrar</button>
-                            <p id="respostas" class="respostas"></p>
-                
+        <div class="quadrado">
+            <div class="container-respostas">
+                <p class="lb_contrate">Contrate nosso <br> serviço</p>
+                <br>
+                <br>
+                <label for="empresa">Empresa</label>
+                <input type="text" id="empresa" placeholder="Nome da empresa">
+                <br>
+                <br>
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" placeholder="99 999999999">
+                <br>
+                <br>
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" placeholder="00000000000">
+                <br>
+                <br>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="seu.email@dominio.com">
+                <br>
+                <br>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Mínimo 6 caracteres">
+                <br>
+                <br>
+                <div class="container-fim">
+                    <p id="respostas" class="respostas"></p>
+                </div>
+                <button id="btn_cadastrar" class="btn_cadastrar">Cadastrar</button>
             </div>
         </div>
 
@@ -50,7 +51,7 @@
         <div class="cabecalho">
             <nav class="nav-bar">
                 <div class="logo">
-                <img src="logo.png" alt="Rota-Certa Logística" class="logo-image">
+                    <img src="logo.png" alt="Rota-Certa Logística" class="logo-image">
                 </div>
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
@@ -60,39 +61,75 @@
                 </ul>
             </nav>
         </div>
-        </div>
-        </div>
-</body>
-<script>
+    </div>
 
-    //criar um evento para quando clicar no botão
-    document.getElementById("btn_cadastrar").addEventListener("click",async()=>{
-//primeira etapa - pegar as informações dos inputs
-        const nome = document.getElementById("nome").value
-        const email = document.getElementById("email").value
-        const telefone = document.getElementById("telefone").value
-        const empresa = document.getElementById("empresa").value
-        const assunto = document.getElementById("assunto").value
-        const mensagem = document.getElementById("mensagem").value
-//segunda etapa - fazer a requisição para o back-end
+    <script>
+        const PORTA = 3000;
+        const API_URL = `http://localhost:${PORTA}/cadastro`;
 
-        const resposta = await fetch(`http://localhost:3000/contato`,{
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({"nome":nome, "email":email, "telefone":telefone, "empresa":empresa, "assunto":assunto, "mensagem":mensagem})
-        })
-
-//terceira etapa - pegar a resposta do back-end
-        if(resposta.ok == true){
-    const dados = await resposta.json()
-    document.getElementById("respostas").innerText = dados.resposta
-        }else{
-
+        function clearFormFields() {
+            document.getElementById("empresa").value = "";
+            document.getElementById("telefone").value = "";
+            document.getElementById("cpf").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("senha").value = "";
+            
+            const pMessageEl = document.getElementById("respostas");
+            const containerFimEl = document.querySelector(".container-fim");
+            
+            pMessageEl.innerText = "";
+            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
         }
-    })
 
-</script>
+        document.getElementById("btn_cadastrar").addEventListener("click", async () => {
+            const cpf = document.getElementById("cpf").value.trim();
+            const empresa = document.getElementById("empresa").value.trim();
+            const telefone = document.getElementById("telefone").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+            
+            const pMessageEl = document.getElementById("respostas");
+            const containerFimEl = document.querySelector(".container-fim");
+
+            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
+            pMessageEl.innerText = "Processando cadastro..."; 
+            containerFimEl.classList.add('container-fim-success'); 
+
+            if (!cpf || !empresa || !telefone || !email || !senha) {
+                pMessageEl.innerText = "Preencha todos os campos.";
+                containerFimEl.classList.remove('container-fim-success');
+                containerFimEl.classList.add('container-fim-error');
+                return;
+            }
+
+            try {
+                const resposta = await fetch(API_URL, { 
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ cpf, empresa, telefone, email, senha }) 
+                });
+
+                const dados = await resposta.json();
+                containerFimEl.classList.remove('container-fim-success');
+
+                if (resposta.ok) {
+                    pMessageEl.innerText = dados.resposta;
+                    containerFimEl.classList.add('container-fim-success');
+                    setTimeout(clearFormFields, 3000);
+                } else {
+                    pMessageEl.innerText = `Erro: ${dados.resposta || 'Falha desconhecida.'}`;
+                    containerFimEl.classList.add('container-fim-error');
+                }
+            } catch (error) {
+                containerFimEl.classList.remove('container-fim-success');
+                containerFimEl.classList.add('container-fim-error'); 
+                console.error('Erro de rede ou na requisição:', error);
+                pMessageEl.innerText = "Erro de conexão. Verifique se o servidor está rodando na porta 3000.";
+            }
+        });
+    </script>
+</body>
 </html>
