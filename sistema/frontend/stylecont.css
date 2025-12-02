@@ -89,8 +89,7 @@ html, body {
 }
 .container-respostas input[type="email"],
 .container-respostas input[type="password"],
-.container-respostas input[type="text"],
-.container-respostas input[type="tel"] {
+.container-respostas input[type="text"]{
     border-radius: 30px; 
     font-size: 25px;
     height: 40px; 
@@ -103,7 +102,117 @@ html, body {
     margin-right: initial;
     
 }
+.container-fim{
+    min-height: 10px; 
+            margin-top: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+}
 
+
+
+
+/* Ajuste do container pai para garantir que a mensagem fique ACIMA do botão e centralizada */
+.container-btn-resposta {
+    display: flex; 
+    /* Usando ordem de coluna normal para que a mensagem (que vem primeiro no HTML) fique ACIMA do botão. */
+    flex-direction: column; 
+    align-items: center; /* Centraliza os itens na horizontal */
+    gap: 10px; /* Espaçamento entre os elementos (mensagem e botão) */
+    
+    /* Força o contêiner do botão/mensagem a ser centralizado dentro do seu pai (.container-respostas) */
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%; 
+    padding-bottom: 20px; /* Adiciona um espaço no final */
+}
+
+/* 2. O PARÁGRAFO (p.respostas) lida apenas com o texto interno. */
+.respostas {
+    font-weight: bold;
+    padding: 0 10px;
+    text-align: center;
+    /* Inicia transparente */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    word-break: break-word; 
+}
+
+/* 3. CORREÇÃO DE VISIBILIDADE: Torna o texto visível (opacity: 1)
+   quando o contêiner externo (.container-fim) possui qualquer
+   uma das classes de status aplicadas pelo JavaScript. */
+   .container-fim {
+    /* AJUSTE: min-height reduzido para diminuir o tamanho do "quadrado" */
+    min-height: 30px; 
+    margin-top: 15px;
+    max-width: 80%; 
+    width: 100%; 
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Adicionado padding para garantir que o texto não toque nas bordas */
+    padding: 5px 10px;
+}
+
+/* Ajuste do container pai para garantir que a mensagem fique ACIMA do botão e centralizada */
+.container-btn-resposta {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    /* AJUSTE: Reduzido para 5px para diminuir a distância entre a mensagem e o botão */
+    gap: 5px; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%; 
+    padding-bottom: 20px; 
+}
+
+/* 2. O PARÁGRAFO (p.respostas) lida apenas com o texto interno. */
+.respostas {
+    font-weight: bold;
+    /* Removido o padding e margin para evitar conflito com min-height do pai e CORRIGIR O SALTO */
+    padding: 0;
+    margin: 0; 
+    text-align: center;
+    opacity:0;
+    transition: opacity 0.3s ease-in-out;
+    word-break: break-word; 
+    font-size: 16px; 
+    line-height: 1.2;
+}
+
+/* 3. CORREÇÃO DE VISIBILIDADE: Torna o texto visível (opacity: 1)
+   quando o contêiner externo (.container-fim) possui qualquer
+   uma das classes de status aplicadas pelo JavaScript. */
+.container-fim-success .respostas,
+.container-fim-error .respostas { 
+    opacity: 1;
+}
+
+/* 4. CORES (Aplicadas ao WRAPPER) */
+
+/* Estilo para SUCESSO (Verde) - APLICADO À DIV EXTERNA */
+.container-fim-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+.container-fim-success .respostas {
+    color: #155724; 
+}
+
+/* Estilo para ERRO (Vermelho) - APLICADO À DIV EXTERNA */
+.container-fim-error {
+    background-color: #f8d7da;
+    border: 1px solid 
+}
+.container-fim-error .respostas {
+    color: #721c24; 
+}
 .btn_enviar{
     font-family: 'nunito', sans-serif;
     font-size: 20px;
@@ -118,7 +227,7 @@ html, body {
     align-items: center; 
     width: 230px;
     height: 55px;
-    margin: 80px auto 0 auto; 
+    margin: 4px auto 0 auto; 
     
 }
 
@@ -330,5 +439,9 @@ html, body {
     z-index: 9;
     width: 130px;
     height: auto;
-    
+}
+.container-respostas input::placeholder {
+    color: #90a4ae; 
+    font-size: 18px;
+    font-weight: 400;
 }
