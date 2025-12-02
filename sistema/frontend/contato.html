@@ -8,112 +8,138 @@
 </head>
 <body>
     <header class="cabecalho">
-            <nav class="nav-bar">
-                <div class="logo">
-                    <img src="logo.png" alt="Rota-Certa Logística" class="logo-image">
-                </div>
-                <ul class="nav-list">
-                    <li class="homel"><a href="index.html">Home</a></li>
-                    <li class="contatol"><a href="contato.html">Contato</a></li>
-                    <li class="cadastrol"><a href="cadastro.html">Trabalhe Conosco</a></li>
-                    <li class="login"><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="logo.png" alt="Rota-Certa Logística" class="logo-image">
+            </div>
+            <ul class="nav-list">
+                <li class="homel"><a href="index.html">Home</a></li>
+                <li class="contatol"><a href="contato.html">Contato</a></li>
+                <li class="cadastrol"><a href="cadastro.html">Trabalhe Conosco</a></li>
+                <li class="login"><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="container">
-
         <div class="image"></div>
         <div class="triangulo"></div>
 
         <div class="cadastro">
             <div class="fale-conosco">
-            <h1 class="lb-fale-conosco">Fale conosco!</h1>
-            <h2 class="tx-fale-conosco">Tem alguma dúvida sobre nossos serviços, precisa de um orçamento personalizado ou <br> quer discutir uma solução logística? Nossa equipe está pronta para ajudar. Preencha o <br>formulário abaixo ou br utilize nossos canais de contato direto.</h2>
+                <h1 class="lb-fale-conosco">Fale conosco!</h1>
+                <h2 class="tx-fale-conosco">Tem alguma dúvida sobre nossos serviços, precisa de um orçamento personalizado ou <br> quer discutir uma solução logística? Nossa equipe está pronta para ajudar. Preencha o <br>formulário abaixo ou br utilize nossos canais de contato direto.</h2>
             </div>
-<div class="quadradoc">
-    <div class="cntr-respostas">
-    <h1 class="emailc">Email: contato@rotacerta.com</h1>
-    <br>
-    <h1 class="telc">Telefone: +55 (18) 98127-9084</h1>
-    <br>
-    <h1 class="endc">Endereço: São Paulo, SP</h1>
-    <br>
-    <h1 class="socc">Redes Sociais:</h1>
-    <div class="logos-redes">
-    <img src="insta.png" alt="Instagram Logo" class="logo-insta">
-    <img src="face.png" alt="Facebook logo" class="logo-face">
-    <img src="linkedin.png" alt="LinkedIn logo" class="logo-link">
-    </div>
-</div>
-</div>
-        <div class="quadrado">
-            <div id="container-respostas" class="container-respostas">
-                <br>
-                <br>
-                
-                <label for="nome">Nome</label>
-                <input type="text" id="nome">
-                <br>
-                <br>
-                <label for="email">Email</label>
-                <input type="text" id="email">
-                <br>
-                <br>
-                <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone">
-                <br>
-                <br>
-                <label for="empresa">Empresa</label>
-                <input type="text" id="empresa">
-                <br>
-                <br>
-                <label for="assunto">Assunto</label>
-                <input type="text" id="assunto">
-                <br>
-                <br>
-                <label for="mensagem">Mensagem</label>
-                <input type="text" id="mensagem">
-                
-                <div class="container-btn-resposta">
-                    <button id="btn_enviar" class="btn_enviar">Enviar</button>
-                    <p id="respostas" class="respostas"></p>
+            <div class="quadradoc">
+                <div class="cntr-respostas">
+                    <h1 class="emailc">Email: contato@rotacerta.com</h1>
+                    <br>
+                    <h1 class="telc">Telefone: +55 (18) 98127-9084</h1>
+                    <br>
+                    <h1 class="endc">Endereço: São Paulo, SP</h1>
+                    <br>
+                    <h1 class="socc">Redes Sociais:</h1>
+                    <div class="logos-redes">
+                        <img src="insta.png" alt="Instagram Logo" class="logo-insta">
+                        <img src="face.png" alt="Facebook logo" class="logo-face">
+                        <img src="linkedin.png" alt="LinkedIn logo" class="logo-link">
+                    </div>
                 </div>
+            </div>
+            <div class="quadrado">
+                <div id="container-respostas" class="container-respostas">
+                    <br>
+                    <br>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" placeholder="Nome Completo">
+                    <br>
+                    <br>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" placeholder="seu.email@dominio.com">
+                    <br>
+                    <br>
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" placeholder="99 999999999">
+                    <br>
+                    <br>
+                    <label for="empresa">Empresa</label>
+                    <input type="text" id="empresa" placeholder="Nome da empresa">
+                    <br>
+                    <br>
+                    <label for="assunto">Assunto</label>
+                    <input type="text" id="assunto" placeholder="Assunto da mensagem">
+                    <br>
+                    <br>
+                    <label for="mensagem">Mensagem</label>
+                    <input type="text" id="mensagem" placeholder="Sua mensagem, dúvida ou sugestão">
+                    
+                    <div class="container-btn-resposta">
+                        <div class="container-fim">
+                            <p id="respostas" class="respostas"></p>
+                        </div>
+                        <button id="btn_enviar" class="btn_enviar">Enviar</button>
+                    </div>
                 </div>
+            </div>
         </div>
     </div>
-    </div>
-</body>
-<script>
 
-    //criar um evento para quando clicar no botão
-    document.getElementById("btn_enviar").addEventListener("click",async()=>{
-//primeira etapa - pegar as informações dos inputs
-        const nome = document.getElementById("nome").value
-        const email = document.getElementById("email").value
-        const telefone = document.getElementById("telefone").value
-        const empresa = document.getElementById("empresa").value
-        const assunto = document.getElementById("assunto").value
-        const mensagem = document.getElementById("mensagem").value
-//segunda etapa - fazer a requisição para o back-end
-
-        const resposta = await fetch(`http://localhost:3000/contato`,{
-            method:"POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({"nome":nome, "email":email, "telefone":telefone, "empresa":empresa, "assunto":assunto, "mensagem":mensagem})
-        })
-
-//terceira etapa - pegar a resposta do back-end
-        if(resposta.ok == true){
-    const dados = await resposta.json()
-    document.getElementById("respostas").innerText = dados.resposta
-        }else{
-
+    <script>
+        function clearFormFields() {
+            document.getElementById("nome").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("telefone").value = "";
+            document.getElementById("empresa").value = "";
+            document.getElementById("assunto").value = "";
+            document.getElementById("mensagem").value = "";
+            
+            const pMessageEl = document.getElementById("respostas");
+            const containerFimEl = document.querySelector(".container-fim");
+            
+            pMessageEl.innerText = "";
+            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
         }
-    })
 
-</script>
+        document.getElementById("btn_enviar").addEventListener("click", async () => {
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const telefone = document.getElementById("telefone").value.trim();
+            const empresa = document.getElementById("empresa").value.trim();
+            const assunto = document.getElementById("assunto").value.trim();
+            const mensagem = document.getElementById("mensagem").value.trim();
+            
+            const pMessageEl = document.getElementById("respostas");
+            const containerFimEl = document.querySelector(".container-fim");
+
+            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
+            pMessageEl.innerText = "Enviando..."; 
+
+            try {
+                const resposta = await fetch('http://localhost:3000/contato', { 
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ nome, email, telefone, empresa, assunto, mensagem })
+                });
+
+                const dados = await resposta.json();
+
+                if (resposta.ok) {
+                    pMessageEl.innerText = dados.resposta;
+                    containerFimEl.classList.add('container-fim-success');
+                    setTimeout(clearFormFields, 3000);
+                } else {
+                    pMessageEl.innerText = `Erro: ${dados.resposta || 'Falha na comunicação com o servidor.'}`;
+                    containerFimEl.classList.add('container-fim-error');
+                }
+            } catch (error) {
+                containerFimEl.classList.add('container-fim-error');
+                console.error('Erro de rede ou na requisição:', error);
+                pMessageEl.innerText = "Erro de conexão. Verifique se o servidor está rodando na porta 3000.";
+            }
+        });
+    </script>
+</body>
 </html>
