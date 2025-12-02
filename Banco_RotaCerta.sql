@@ -20,6 +20,21 @@ DROP DATABASE IF EXISTS `rotacerta`;
 CREATE DATABASE IF NOT EXISTS `rotacerta` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */;
 USE `rotacerta`;
 
+-- Copiando estrutura para tabela rotacerta.cadastro
+DROP TABLE IF EXISTS `cadastro`;
+CREATE TABLE IF NOT EXISTS `cadastro` (
+  `id_cadastro` int(11) NOT NULL AUTO_INCREMENT,
+  `empresa` varchar(100) NOT NULL,
+  `telefone` varchar(13) NOT NULL DEFAULT '',
+  `cpf` varchar(11) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_cadastro`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- Copiando dados para a tabela rotacerta.cadastro: ~0 rows (aproximadamente)
+DELETE FROM `cadastro`;
+
 -- Copiando estrutura para tabela rotacerta.contato
 DROP TABLE IF EXISTS `contato`;
 CREATE TABLE IF NOT EXISTS `contato` (
