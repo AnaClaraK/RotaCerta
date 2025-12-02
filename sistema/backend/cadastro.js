@@ -20,27 +20,27 @@ app.post("/cadastro", async(req,res)=>{
 
         senha = senha.trim()
 
-        if (cpf == "") {
-            return res.json({"resposta":"Preencha o CPF"})
+        if (cpf.length == "") {
+            return res.status(400).json({"resposta":"Preencha o CPF"})
         } else if (empresa.length == ""){
-            return res.json({"resposta":"Preencha o nome da empresa"})
-        } else if (email == "") {
-            return res.json({"resposta":"Preencha o e-mail"})
-        } else if (senha == "") {
-            return res.json({"resposta":"Preencha a senha"})
+            return res.status(400).json({"resposta":"Preencha o nome da empresa"})
+        } else if (email.length == "") {
+            return res.status(400).json({"resposta":"Preencha o e-mail"})
+        } else if (senha.length == "") {
+            return res.status(400).json({"resposta":"Preencha a senha"})
         } else if (telefone.length == ""){
-            return res.json({"resposta":"Preencha o número de telefone"})
+            return res.status(400).json({"resposta":"Preencha o número de telefone"})
         }else if (cpf.length !== 11){
-            return res.json({"resposta":"O CPF deve ter 11 dígitos. Exemplo: 12345678901 "})
+            return res.status(400).json({"resposta":"O CPF deve ter 11 dígitos. Exemplo: 12345678901 "})
         } else if (senha.length < 6){
-            return res.json({"resposta":"A senha deve ter no mínimo 6 caracteres"})
+            return res.status(400).json({"resposta":"A senha deve ter no mínimo 6 caracteres"})
         } else if (!email.includes('@') || !email.includes('.')){
-            return res.json({"resposta":"O e-mail deve ter o formato correto"})
+            return res.status(400).json({"resposta":"O e-mail deve ter o formato correto"})
         }else if (telefone.length !== 11) {
-            return res.json({"resposta":"O telefone deve ter 11 dígitos (com DDD)"});
+            return res.status(400).json({"resposta":"O telefone deve ter 11 dígitos (com DDD)"});
         }
 
-        let sqlVerificar = `SELECT email FROM clientes WHERE email = ? or empresa = ? or telefone = ? or cpf = ?`
+        let sqlVerificar = `SELECT email FROM cadastro WHERE email = ? or empresa = ? or telefone = ? or cpf = ?`
         let [usuariosExistentes] = await conexao.query(sqlVerificar, [email, empresa, telefone, cpf])
 
         if (usuariosExistentes.length > 0) {
@@ -62,12 +62,12 @@ app.post("/cadastro", async(req,res)=>{
 
         const senhaHashed = crypto.createHash("sha256").update(senha).digest("hex") 
 
-        const sqlInsert = `INSERT INTO clientes (cpf, empresa, telefone, email) VALUES (?, ?, ?, ?)`
+        const sqlInsert = `INSERT INTO cadastro (cpf, empresa, telefone, email, senha) VALUES (?, ?, ?, ?, ?)`
 
         let [resultado] = await conexao.query(sqlInsert, [cpf, empresa, telefone, email, senhaHashed])
 
         if (resultado.affectedRows == 1) {
-            return res.status(201).json({"resposta":"Cadastro realizado com sucesso!"})
+            return res.status(201).json({"resposta":"Cadastro realizado com sucesso! Faça login para continuar."})
         } else {
             return res.status(500).json({ "resposta": "Erro inesperado ao salvar no banco." })
         }
