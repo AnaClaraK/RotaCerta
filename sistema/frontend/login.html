@@ -40,68 +40,68 @@
     </div>
 
     <script>
-        function clearStatusMessage() {
-            const pMessageEl = document.getElementById("respostas");
-            const containerFimEl = document.querySelector(".container-fim");
-            
-            pMessageEl.innerText = "";
-            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
-            
-            document.getElementById("email").value = "";
-            document.getElementById("senha").value = "";
+    function clearStatusMessage() {
+        const pMessageEl = document.getElementById("respostas");
+        const containerFimEl = document.querySelector(".container-fim");
+        
+        pMessageEl.innerText = "";
+        containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
+        document.getElementById("email").value = "";
+        document.getElementById("senha").value = "";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const btnEntrar = document.getElementById("btn_entrar");
+
+        if (!btnEntrar) {
+            console.error("Erro: Botão de login (#btn_entrar) não encontrado.");
+            return;
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const btnEntrar = document.getElementById("btn_entrar");
+        btnEntrar.addEventListener("click", async () => {    
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+            
+            const pMessageEl = document.getElementById("respostas");
+            const containerFimEl = document.querySelector(".container-fim");
+            containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
+            pMessageEl.innerText = "Validando credenciais...";
+            
+            try {
+                const resposta = await fetch(`http://localhost:3000/login`, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({"email": email, "senha": senha})
+                });
 
-            if (!btnEntrar) {
-                console.error("Erro: Botão de login (#btn_entrar) não encontrado.");
-                return;
-            }
 
-            btnEntrar.addEventListener("click", async () => {
-                const email = document.getElementById("email").value;
-                const senha = document.getElementById("senha").value;
-                
-                const pMessageEl = document.getElementById("respostas");
-                const containerFimEl = document.querySelector(".container-fim");
+                if (resposta.ok) {
+                    containerFimEl.classList.remove('container-fim-error');
+                    containerFimEl.classList.add('container-fim-success');
+                    pMessageEl.innerText = dados.resposta;
+                    
+                    console.log("LOGIN BEM-SUCEDIDO. TENTANDO REDIRECIONAR PARA:", 'dashboard.html');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
 
-                containerFimEl.classList.remove('container-fim-success', 'container-fim-error');
-                pMessageEl.innerText = "Validando credenciais...";
-
-                try {
-                    const resposta = await fetch(`http://localhost:3000/login`, {
-                        method: "POST",
-                        headers: {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({"email": email, "senha": senha})
-                    });
-
-                    const dados = await resposta.json();
-
-                    if (resposta.ok) {
-                        containerFimEl.classList.remove('container-fim-error');
-                        containerFimEl.classList.add('container-fim-success');
-                        pMessageEl.innerText = dados.resposta;
-                        
-                        setTimeout(() => {
-                            window.location.href = '/dashboard.html';
-                        }, 1500);
-                    } else {
-                        containerFimEl.classList.remove('container-fim-success');
-                        containerFimEl.classList.add('container-fim-error');
-                        pMessageEl.innerText = dados.resposta || "Erro desconhecido ao processar o login.";
-                    }
-                } catch (error) {
+                } else {
                     containerFimEl.classList.remove('container-fim-success');
                     containerFimEl.classList.add('container-fim-error');
-                    pMessageEl.innerText = "Erro de conexão. Verifique se o servidor está rodando na porta 3000.";
-                    console.error("Erro de rede/servidor:", error);
+                    pMessageEl.innerText = dados.resposta || "Erro desconhecido ao processar o login.";
                 }
-            });
+
+            } catch (error) {
+                containerFimEl.classList.remove('container-fim-success');
+                containerFimEl.classList.add('container-fim-error');
+                pMessageEl.innerText = "Erro de conexão. Verifique se o servidor está rodando na porta 3000.";
+                console.error("Erro de rede/servidor:", error);
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
